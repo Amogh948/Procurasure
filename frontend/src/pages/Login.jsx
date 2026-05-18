@@ -29,17 +29,17 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    const apiURL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    const apiURL = import.meta.env.VITE_API_URL || 'https://localhost:5000';
     window.location.href = `${apiURL}/api/auth/google`;
   };
 
   return (
     <div className="split-auth-container">
       {/* Left Column: Industrial Procurement Hero Image Banner */}
-      <div 
-        className="auth-hero-panel" 
-        style={{ 
-          backgroundImage: "url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80')" 
+      <div
+        className="auth-hero-panel"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80')"
         }}
       >
         <div className="auth-hero-overlay" />
@@ -110,13 +110,13 @@ const Login = () => {
           </div>
 
           {error && (
-            <div style={{ 
-              backgroundColor: 'rgba(239, 68, 68, 0.1)', 
-              color: 'var(--error)', 
-              padding: '12px', 
-              borderRadius: 'var(--radius)', 
-              marginBottom: '20px', 
-              fontSize: '0.875rem', 
+            <div style={{
+              backgroundColor: 'rgba(239, 68, 68, 0.1)',
+              color: 'var(--error)',
+              padding: '12px',
+              borderRadius: 'var(--radius)',
+              marginBottom: '20px',
+              fontSize: '0.875rem',
               textAlign: 'center',
               fontWeight: '600'
             }}>
@@ -127,22 +127,22 @@ const Login = () => {
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label className="form-label">Email Address</label>
-              <input 
-                type="email" 
-                className="form-input" 
-                placeholder="company@email.com" 
-                required 
+              <input
+                type="email"
+                className="form-input"
+                placeholder="company@email.com"
+                required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="form-group" style={{ marginBottom: '25px' }}>
               <label className="form-label">Password</label>
-              <input 
-                type="password" 
-                className="form-input" 
-                placeholder="••••••••" 
-                required 
+              <input
+                type="password"
+                className="form-input"
+                placeholder="••••••••"
+                required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -158,10 +158,10 @@ const Login = () => {
             <span style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'var(--surface)', padding: '0 10px', fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Or continue with</span>
           </div>
 
-          <button 
+          <button
             type="button"
             onClick={handleGoogleLogin}
-            className="btn btn-outline" 
+            className="btn btn-outline"
             style={{ width: '100%', padding: '12px', display: 'flex', gap: '10px', justifyContent: 'center', alignItems: 'center', marginBottom: '30px' }}
           >
             <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style={{ width: '20px' }} />
