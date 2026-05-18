@@ -16,8 +16,12 @@ require('./config/passport')(passport);
 
 // Middleware
 app.use(cors({
-    origin: process.env.CLIENT_URL,
-    credentials: true
+  origin: [
+    "http://localhost:5173",
+    "https://procurasure.in",
+    "https://www.procurasure.in"
+  ],
+  credentials: true
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
