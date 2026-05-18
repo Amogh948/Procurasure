@@ -29,7 +29,8 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:5000/api/auth/google';
+    const apiURL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    window.location.href = `${apiURL}/api/auth/google`;
   };
 
   return (
