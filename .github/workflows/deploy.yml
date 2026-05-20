@@ -2,67 +2,135 @@ name: Procurasure CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
+
   build-and-test:
+
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v4
 
-    - name: Use Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-    - name: Install Backend Dependencies
-      run: |
-        cd backend
-        npm install
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
 
-    - name: Install Frontend Dependencies
-      run: |
-        cd frontend
-        npm install
+      - name: Install Backend Dependencies
+        run: |
+          cd backend
+          npm install
 
-    - name: Build Frontend
-      run: |
-        cd frontend
-        npm run build
+      - name: Install Frontend Dependencies
+        run: |
+          cd frontend
+          npm install
+
+      - name: Build Frontend
+        run: |
+          cd frontend
+          npm run build
 
   deploy-frontend:
+
     needs: build-and-test
+
     runs-on: ubuntu-latest
+
     if: github.ref == 'refs/heads/main'
+
     steps:
-    - uses: actions/checkout@v4
-    - name: Deploy to Vercel
-      uses: amondnet/vercel-action@v25
-      with:
-        vercel-token: ${{ secrets.VERCEL_TOKEN }}
-        vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-        working-directory: ./frontend
-        vercel-args: '--prod'
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Latest Vercel CLI
+        run: npm install -g vercel@latest
+
+      - name: Pull Vercel Environment
+        run: |
+          cd frontend
+          vercel pull \
+            --yes \
+            --environment=production \
+            --token=${{ secrets.VERCEL_TOKEN }}
+
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Build Vercel Project
+        run: |
+          cd frontend
+          vercel build \
+            --prod \
+            --token=${{ secrets.VERCEL_TOKEN }}
+
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Deploy Frontend
+        run: |
+          cd frontend
+          vercel deploy \
+            --prebuilt \
+            --prod \
+            --token=${{ secrets.VERCEL_TOKEN }}
+
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
   deploy-backend:
-    needs: build-and-test
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-    - uses: actions/checkout@v4
-    - name: Deploy to AWS
-      uses: appleboy/ssh-action@v1.2.0
-      with:
-        host: ${{ secrets.AWS_HOST }}
-        username: ${{ secrets.AWS_USERNAME }}
-        key: ${{ secrets.AWS_SSH_KEY }}
-        script: |
-          cd ~/Procurasure/backend
-          git fetch origin
-          git reset --hard origin/main
-          npm install
-          pm2 restart procurasure-api --update-env
 
+    needs: build-and-test
+
+    runs-on: ubuntu-latest
+
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Deploy Backend To AWS
+        uses: appleboy/ssh-action@v1.2.0
+
+        with:
+
+          host: ${{ secrets.AWS_HOST }}
+
+          username: ${{ secrets.AWS_USERNAME }}
+
+          key: ${{ secrets.AWS_SSH_KEY }}
+
+          script: |
+            cd ~/Procurasure/backend
+
+            git fetch origin
+
+            git reset --hard origin/main
+
+            npm install
+
+            pm2 restart procurasure-api --update-env
+
+            pm2 save
+
+            pm2 list
