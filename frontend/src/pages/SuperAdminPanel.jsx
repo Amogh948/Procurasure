@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Package, Grid, ShoppingBag, Plus, Trash2, Edit, CheckCircle, XCircle, X } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 const SuperAdminPanel = () => {
+  const { user, loading: authLoading } = useAuth();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('orders');
   const [orders, setOrders] = useState([]);
   const [products, setProducts] = useState([]);
@@ -33,8 +37,26 @@ const SuperAdminPanel = () => {
   });
 
   useEffect(() => {
-    fetchData();
-  }, [activeTab]);
+    if (!authLoading) {
+      if (!user || user.role !== 'superadmin') {
+        navigate('/login?redirect=admin');
+      } else {
+        fetchData();
+      }
+    }
+  }, [activeTab, user, authLoading, navigate]);
+
+  if (authLoading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+        <p style={{ color: 'var(--text-muted)', fontWeight: '600' }}>Loading authorization...</p>
+      </div>
+    );
+  }
+
+  if (!user || user.role !== 'superadmin') {
+    return null;
+  }
 
   const fetchData = async () => {
     setLoading(true);
