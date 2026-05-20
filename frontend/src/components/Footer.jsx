@@ -70,11 +70,15 @@ const Footer = () => {
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
               <li className="flex gap-2 items-center" style={{ color: '#94a3b8' }}>
                 <MapPin size={18} />
-                <span>123 Industrial Way, Business District</span>
+                <span>Rajajinagar,Bangalore,Karnataka</span>
               </li>
               <li className="flex gap-2 items-center" style={{ color: '#94a3b8' }}>
                 <Phone size={18} />
-                <span>+1 (555) 000-1234</span>
+                <span>+919483234304</span>
+              </li>
+                            <li className="flex gap-2 items-center" style={{ color: '#94a3b8' }}>
+                <Phone size={18} />
+                <span>+916363662344</span>
               </li>
               <li className="flex gap-2 items-center" style={{ color: '#94a3b8' }}>
                 <Mail size={18} />

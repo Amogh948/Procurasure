@@ -52,8 +52,8 @@ const Header = () => {
     }}>
       <div className="header-container">
         {/* Logo */}
-        <Link to="/" style={{ fontSize: '1.5rem', fontWeight: '800', color: 'var(--primary)', letterSpacing: '-0.5px' }} onClick={() => setMobileMenuOpen(false)}>
-          PROCURASURE
+        <Link to="/" style={{ fontFamily: "'Syne', sans-serif", fontSize: '1.5rem', fontWeight: '800', color: 'var(--primary)', letterSpacing: '-0.02em' }} onClick={() => setMobileMenuOpen(false)}>
+          Procura<span style={{ color: '#f0a500' }}>sure</span>
         </Link>
 
         {/* Right side actions and links */}

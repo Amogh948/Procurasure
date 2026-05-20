@@ -35,7 +35,7 @@ const ProductCard = ({ product }) => {
         </p>
         <div className="flex items-center justify-between" style={{ marginTop: 'auto' }}>
           <span style={{ fontSize: '1.1rem', fontWeight: '700', color: 'var(--accent)' }}>
-            ${product.price?.toFixed(2)}
+            ₹{product.price?.toFixed(2)}
           </span>
 
           {/* Interactive Cart Controllers */}
