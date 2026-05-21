@@ -25,7 +25,7 @@ const STYLES = `
 
   .ps-label {
     display:block; font-family:var(--ps-font-head); font-size:0.78rem; font-weight:700;
-    text-transform:uppercase; letter-spacing:0.08em; color:#64748b; margin-bottom:8px;
+    text-transform:uppercase; letter-spacing:0.08em; color:FBF5DD; margin-bottom:8px;
   }
 
   .ps-submit-btn {
@@ -138,9 +138,9 @@ const Contact = () => {
                     <Icon size={20} color={color}/>
                   </div>
                   <div>
-                    <p style={{ fontFamily:'var(--ps-font-head)', fontSize:'0.78rem', fontWeight:700, color:'#475569', textTransform:'uppercase', letterSpacing:'0.08em', marginBottom:4 }}>{title}</p>
+                    <p style={{ fontFamily:'var(--ps-font-head)', fontSize:'0.78rem', fontWeight:700, color:'FBF5DD', textTransform:'uppercase', letterSpacing:'0.08em', marginBottom:4 }}>{title}</p>
                     <p style={{ color:'#e2e8f0', fontWeight:600, marginBottom:2, fontSize:'0.92rem' }}>{value}</p>
-                    <p style={{ color:'#334155', fontSize:'0.78rem' }}>{sub}</p>
+                    <p style={{ color:'FBF5DD', fontSize:'0.78rem' }}>{sub}</p>
                   </div>
                 </div>
               ))}
@@ -159,7 +159,7 @@ const Contact = () => {
               <div style={{ fontFamily:'var(--ps-font-head)', fontSize:'2rem', fontWeight:800, background:'linear-gradient(135deg,#f0a500,#fbbf24)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent' }}>
                 &lt; 2 Hours
               </div>
-              <p style={{ color:'#334155', fontSize:'0.78rem', marginTop:4 }}>During business hours</p>
+              <p style={{ color:'#94a3b8', fontSize:'0.78rem', marginTop:4 }}>During business hours</p>
             </div>
           </div>
 
